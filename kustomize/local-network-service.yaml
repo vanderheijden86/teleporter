@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: local-network
+  namespace: avalanche
+spec:
+  selector:
+    app: local-network
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9650

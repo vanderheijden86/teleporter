@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: local-network
+  labels:
+    app: local-network
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: local-network
+  template:
+    metadata:
+      labels:
+        app: local-network
+    spec:
+      containers:
+      - name: local-network
+        image: local-network-image
+        ports:
+        - containerPort: 9650
+          hostPort: 9650
+        env:
+        - name: ARCH
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: ARCH
+        - name: GO_VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: GO_VERSION
+        volumeMounts:
+        - name: code-volume
+          mountPath: /code
+        workingDir: /code
+        command: ["/bin/sh", "-c", "/code/docker/run_setup.sh"]
+      hostNetwork: true
+      volumes:
+      - name: code-volume
+        hostPath:
+          path: /Users/andrevanderheijden/Documents/teleporter/docker/
+          type: Directory
