@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: local-network
+  namespace: avalanche
   labels:
     app: local-network
 spec:
@@ -40,5 +41,5 @@ spec:
       volumes:
       - name: code-volume
         hostPath:
-          path: /Users/andrevanderheijden/Documents/teleporter/docker/
+          path: ../docker/
           type: Directory
