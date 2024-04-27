@@ -35,6 +35,11 @@ ENV GOPATH $HOME/go
 ENV GOROOT /usr/local/go
 RUN go version
 
+# Delve debugger to run while listening for remote debugger
+RUN go install github.com/go-delve/delve/cmd/dlv@latest
+# Expose a port for the debugger in your Dockerfile:
+EXPOSE 2345
+
 # Set locale
 RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8

@@ -17,6 +17,7 @@ services:
     entrypoint: ["/code/docker/run_setup.sh"]
     ports:
       - "9650:9650"
+      - "2345:2345" # For debugging
     network_mode: "host"
     volumes:
       - type: bind

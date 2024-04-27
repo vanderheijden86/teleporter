@@ -14,5 +14,10 @@ set -a
 source "$TELEPORTER_PATH"/scripts/versions.sh
 source $TELEPORTER_PATH/.env
 source $TELEPORTER_PATH/.env.local-testnet
+# add /go/bin to PATH
+export PATH=$PATH:/go/bin
 
-go run tests/testnet/main/run_testnet_flows.go
+# eval "$(head -n 89 vars.sh)"
+
+
+dlv debug --headless --log --listen=:2345 --api-version=2 --accept-multiclient tests/testnet/main/run_testnet_flows.go
